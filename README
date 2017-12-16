@@ -71,3 +71,5 @@ Possible solution: Write a state-aware midirouter in the vein of qmidiroute.
 Intermittent problem: Line input does not work sometimes.
 
 -----
+
+Intermittent problem: Keepass sometimes doesn't copy to primary selection.
