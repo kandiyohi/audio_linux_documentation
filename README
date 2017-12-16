@@ -73,3 +73,10 @@ Intermittent problem: Line input does not work sometimes.
 -----
 
 Intermittent problem: Keepass sometimes doesn't copy to primary selection.
+
+-----
+
+Problem: XTerm fonts are too tiny by default.
+
+Solution: Add this as a line to ~/.Xresources and read the file using xrdb in
+.xinitrc: "*VT100.font:   10x20".
