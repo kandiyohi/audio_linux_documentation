@@ -1,5 +1,29 @@
 Installed Artix.
 
+Artix doesn't use systemd, which is considered significant.  I needed a minimal
+OS that works well and that I know.  Gentoo's issue is that it takes a while, so
+I might lose focus while waiting hours for some packages to compile.  Gentoo
+would be preferable if I could dial those times down.  Short of making a
+dedicated computer or a computing cluster for compilation, that is infeasible.
+
+I've had many issues with systemd in the past the render it frustrating as an
+init system when I need things to "just work".
+
+Other OS candidates disqualified:
+
+	Ubuntu (and variants): Pulseaudio is frustrating to work around.  Best
+	to not use it.
+
+	Debian: Need newer packages, and I've run into issues in the past with
+	using their test repositories.
+
+	Windows: A lot of the free things I use are not available or usable on
+	Windows.  Jack alone is very difficult for me to set up with few issues.
+
+	FreeBSD: I'd be lucky if my drivers were to work.  I did not try this,
+	but I may in the future.  This would be the most preferable OS to use if
+	available.
+
 -----
 
 Problem: qmidiroute was crashing whenever it probably couldn't update its GUI.
@@ -10,7 +34,7 @@ isn't on the same tag.
 
 -----
 
-Problem: Can't process quickly.
+Problem: Can't process audio and midi quickly enough (occasional xruns).
 
 Possible solution: Compile a realtime OS kernel using the package in the AUR.
 
@@ -37,6 +61,13 @@ Possible solution: Better window manager.
 
 -----
 
-Problem: Contorl keys meant to toggle on the Launchkey 49 don't toggle.
+Problem: Control keys meant to toggle on board the Launchkey 49 don't toggle.
+Keys such as the track control buttons below each volume slider.
 
 Possible solution: Write a state-aware midirouter in the vein of qmidiroute.
+
+-----
+
+Intermittent problem: Line input does not work sometimes.
+
+-----
