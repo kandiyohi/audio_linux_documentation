@@ -30,7 +30,8 @@ Problem: qmidiroute was crashing whenever it probably couldn't update its GUI.
 
 Solution: Use a window manager that allows windows to update themselves at all
 times.  Awesome seems to do the job, but Ardour seems to zombify itself if it
-isn't on the same tag.
+isn't on the same tag.  I'm guessing that qmidiroute does most of the logic in
+its main thread (which would be its GUI thread).
 
 -----
 
@@ -38,11 +39,21 @@ Problem: Can't process audio and midi quickly enough (occasional xruns).
 
 Possible solution: Compile a realtime OS kernel using the package in the AUR.
 
+Solution done: Compiled realtime OS kernel and launched it.  Pending to see if
+resolved.
+
+Other things: Also installed rtirq and confirmed Jack ran in realtime mode.
+
 -----
 
 Problem: Ethernet is name really weird; "enp0s31f6".
 
 Possible solution: Figure out udev renaming.  Would like to rename to eth0.
+
+Solution: Plug ethernet into port that is named enp5s0.  Easier to type and
+remember.
+
+(not important)
 
 -----
 
@@ -53,11 +64,18 @@ Workaround: Ensure those devices are unplugged at boot.
 
 Possible solution: Set audio device or figure out how to renumber them.
 
+(not important)
+
 -----
 
 Problem: Too many windows.
 
 Possible solution: Better window manager.
+
+Solution desired: A window manager that can remember all locations of all
+windows.
+
+(not important)
 
 -----
 
