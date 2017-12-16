@@ -1,0 +1,42 @@
+Installed Artix.
+
+-----
+
+Problem: qmidiroute was crashing whenever it probably couldn't update its GUI.
+
+Solution: Use a window manager that allows windows to update themselves at all
+times.  Awesome seems to do the job, but Ardour seems to zombify itself if it
+isn't on the same tag.
+
+-----
+
+Problem: Can't process quickly.
+
+Possible solution: Compile a realtime OS kernel using the package in the AUR.
+
+-----
+
+Problem: Ethernet is name really weird; "enp0s31f6".
+
+Possible solution: Figure out udev renaming.  Would like to rename to eth0.
+
+-----
+
+Problem: Novation Circuit and Lunachkey 49 appear as audio devices and are
+listed first over the alsa device.
+
+Workaround: Ensure those devices are unplugged at boot.
+
+Possible solution: Set audio device or figure out how to renumber them.
+
+-----
+
+Problem: Too many windows.
+
+Possible solution: Better window manager.
+
+-----
+
+Problem: Contorl keys meant to toggle on the Launchkey 49 don't toggle.
+
+Possible solution: Write a state-aware midirouter in the vein of qmidiroute.
