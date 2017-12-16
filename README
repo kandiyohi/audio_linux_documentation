@@ -98,3 +98,13 @@ Problem: XTerm fonts are too tiny by default.
 
 Solution: Add this as a line to ~/.Xresources and read the file using xrdb in
 .xinitrc: "*VT100.font:   10x20".
+
+-----
+
+Programs used:
+
+japa - visualizer
+yoshimi - synth
+qmidiroute - routing and singal modification for midi
+qjackctl - connect all the things
+
