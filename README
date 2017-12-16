@@ -101,6 +101,10 @@ Solution: Add this as a line to ~/.Xresources and read the file using xrdb in
 
 -----
 
+Problem: Circuit does not usually send midi signals through Jack via a2jmidid.
+
+-----
+
 Programs used:
 
 japa - visualizer
