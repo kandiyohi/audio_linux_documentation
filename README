@@ -123,3 +123,9 @@ Mutex<RefCell<_>>.  Get a lock first, then get a mutable borrow, and you should
 be good to go.  Sharing a Vec<String> buffer to a Jack process() handle was the
 most annoying thing I've done in a long time.  The API for Jack isn't too
 terrible, though.
+
+-----
+
+I'm moving OSes because Artix is just full of unstable.  If I'm going to
+compile most of my audio package anyway, I would like stability.  Moving to
+Gentoo, which has been stable on my laptop (oddly enough).
