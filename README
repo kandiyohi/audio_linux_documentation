@@ -112,3 +112,14 @@ yoshimi - synth
 qmidiroute - routing and singal modification for midi
 qjackctl - connect all the things
 
+-----
+
+Rust notes:
+
+My programming experience was somewhat horrendous.  I do not understand lifetimes.
+
+What I do understand is that if you want a mutable borrow, use
+Mutex<RefCell<_>>.  Get a lock first, then get a mutable borrow, and you should
+be good to go.  Sharing a Vec<String> buffer to a Jack process() handle was the
+most annoying thing I've done in a long time.  The API for Jack isn't too
+terrible, though.
