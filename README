@@ -1,96 +1,30 @@
-Installed Artix.
+Installed Gentoo.
 
-Artix doesn't use systemd, which is considered significant.  I needed a minimal
-OS that works well and that I know.  Gentoo's issue is that it takes a while, so
-I might lose focus while waiting hours for some packages to compile.  Gentoo
-would be preferable if I could dial those times down.  Short of making a
-dedicated computer or a computing cluster for compilation, that is infeasible.
+Had a bunch of problems I couldn't document.  Mostly, I enabled all USB midi
+drivers, all audio drivers, and added the nouveau driver.
 
-I've had many issues with systemd in the past the render it frustrating as an
-init system when I need things to "just work".
+The realtime kernel failed, but I don't think I need a fully-preemptible kernel
+for audio.
 
-Other OS candidates disqualified:
-
-	Ubuntu (and variants): Pulseaudio is frustrating to work around.  Best
-	to not use it.
-
-	Debian: Need newer packages, and I've run into issues in the past with
-	using their test repositories.
-
-	Windows: A lot of the free things I use are not available or usable on
-	Windows.  Jack alone is very difficult for me to set up with few issues.
-
-	FreeBSD: I'd be lucky if my drivers were to work.  I did not try this,
-	but I may in the future.  This would be the most preferable OS to use if
-	available.
+I'll duplicate some of the problems and solutions from the Artix install.
 
 -----
 
-Problem: qmidiroute was crashing whenever it probably couldn't update its GUI.
+Problem: Jack unknown driver "alsa".
 
-Solution: Use a window manager that allows windows to update themselves at all
-times.  Awesome seems to do the job, but Ardour seems to zombify itself if it
-isn't on the same tag.  I'm guessing that qmidiroute does most of the logic in
-its main thread (which would be its GUI thread).
+Solution: Compile jack-audio-connection-kit with USE="alsa".
 
------
-
-Problem: Can't process audio and midi quickly enough (occasional xruns).
-
-Possible solution: Compile a realtime OS kernel using the package in the AUR.
-
-Solution done: Compiled realtime OS kernel and launched it.  Pending to see if
-resolved.
-
-Other things: Also installed rtirq and confirmed Jack ran in realtime mode.
+Notes: I disabled alsa in general except for applications that needed it.  Just
+so it's easier to use other things.  Using the seq driver for jack helps midi
+get where it needs to be.
 
 -----
 
-Problem: Ethernet is name really weird; "enp0s31f6".
+Problem: Fonts are really tiny at 1920x1080,
 
-Possible solution: Figure out udev renaming.  Would like to rename to eth0.
+Possible solution: Increase xterm, qjackctl, and firefox fonts.
 
-Solution: Plug ethernet into port that is named enp5s0.  Easier to type and
-remember.
-
-(not important)
-
------
-
-Problem: Novation Circuit and Lunachkey 49 appear as audio devices and are
-listed first over the alsa device.
-
-Workaround: Ensure those devices are unplugged at boot.
-
-Possible solution: Set audio device or figure out how to renumber them.
-
-(not important)
-
------
-
-Problem: Too many windows.
-
-Possible solution: Better window manager.
-
-Solution desired: A window manager that can remember all locations of all
-windows.
-
-(not important)
-
------
-
-Problem: Control keys meant to toggle on board the Launchkey 49 don't toggle.
-Keys such as the track control buttons below each volume slider.
-
-Possible solution: Write a state-aware midirouter in the vein of qmidiroute.
-
------
-
-Intermittent problem: Line input does not work sometimes.
-
------
-
-Intermittent problem: Keepass sometimes doesn't copy to primary selection.
+Notes: Scaling through xrandr is subpar.
 
 -----
 
@@ -99,33 +33,36 @@ Problem: XTerm fonts are too tiny by default.
 Solution: Add this as a line to ~/.Xresources and read the file using xrdb in
 .xinitrc: "*VT100.font:   10x20".
 
------
+Solution2: Add this, too, to ~/.Xresources:
 
-Problem: Circuit does not usually send midi signals through Jack via a2jmidid.
-
------
-
-Programs used:
-
-japa - visualizer
-yoshimi - synth
-qmidiroute - routing and singal modification for midi
-qjackctl - connect all the things
+	*VT100.utf8Fonts.font:   10x20
 
 -----
 
-Rust notes:
+Problem: Xterm doesn't reverse video by default.
 
-My programming experience was somewhat horrendous.  I do not understand lifetimes.
+Solution: Add this line to ~/.Xresources and ensure xrdb reads at xinit:
 
-What I do understand is that if you want a mutable borrow, use
-Mutex<RefCell<_>>.  Get a lock first, then get a mutable borrow, and you should
-be good to go.  Sharing a Vec<String> buffer to a Jack process() handle was the
-most annoying thing I've done in a long time.  The API for Jack isn't too
-terrible, though.
+	XTerm.VT100.reverseVideo: true
 
 -----
 
-I'm moving OSes because Artix is just full of unstable.  If I'm going to
-compile most of my audio package anyway, I would like stability.  Moving to
-Gentoo, which has been stable on my laptop (oddly enough).
+Problem: rust doesn't know for_each exists on Iterator.
+
+Possible solution: `emerge rust`.
+
+-----
+
+Problem: Ardour 5.12 crashes with an assertion failure.
+
+Notes: Assertion failure from the console:
+
+	ardour-5.12.0: /var/tmp/portage/media-sound/jack-audio-connection-kit-0.121.3-r1/work/jack-audio-connection-kit-0.121.3/libjack/midiport.c:310: jack_midi_port_mixdown: Assertion `out_info->event_count == num_events - out_info->events_lost' failed.
+	Aborted
+
+Possible solution: Patch the source to Ardour in a custom ebuild repository.
+Send the patch to gentoo maintainer.
+
+Actual solution: Modify jack-audio-connection-kit ebuild to add -DNDEBUG flag
+to disable asserts (all of them, but we were concerned with the one above from
+libjack).
