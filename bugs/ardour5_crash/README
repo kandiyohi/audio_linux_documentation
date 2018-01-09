@@ -1,0 +1,8 @@
+Ardour 5 crashes with the following log:
+
+	ardour-5.12.0: /var/tmp/portage/media-sound/jack-audio-connection-kit-0.121.3-r1/work/jack-audio-connection-kit-0.121.3/libjack/midiport.c:310: jack_midi_port_mixdown: Assertion `out_info->event_count == num_events - out_info->events_lost' failed.
+
+This tends to happen when there is a midi track being played from disk and midi
+input being played simultaneously (not necessarily recording).
+
+This is from jack-audio-connection-kit being compiled without -DNDEBUG because of an assert.
